@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Manrope:wght@200..800&family=Montenegrin+Gothic+One&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/stylebill.css">
+    <title>Struk Pembayaran</title>
+</head>
+<body>
+    <div class="wall"><img src="asset/—Pngtree—black marble texture with golden_19650579.png"></div>
+    <div class="wall-over"></div>
+    <div class="receipt-container">
+        <h2>ACCUSÉ DE RÉCEPTION DE COMMANDE</h2>
+        <div class="subtitle">Cafe Well</div>
+        <div class="date" id="receipt-date">-</div>
+        
+        <div class="customer-info">
+            <p><strong>Name :</strong> <span id="name">-</span></p>
+            <p><strong>Table Number :</strong> <span id="table">-</span></p>
+            <p><strong>Notes:</strong> <span id="notes">-</span></p>
+            <p><strong>Critics/suggestion: <span id="cands">-</span></strong></p>
+            <p><strong>date: <span id="date">-</span></strong></p>
+            
+        </div>
+
+        <div id="receipt-list"></div>
+
+        <div class="receipt-total">
+            <span>Paiement total</span>
+            <span id="receipt-total-price">Rp 0</span>
+        </div>
+
+        <a href="index1.html" class="back-btn">Commander à nouveau</a>
+    </div>
+
+   <script src="script/bill.js"></script>
+</body>
+</html>

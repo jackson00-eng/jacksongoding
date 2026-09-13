@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Struk Pembayaran</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .receipt-container {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 2px;
+            color: #333;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .date {
+            text-align: center;
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 10px;
+        }
+        .customer-info {
+            font-size: 13px;
+            margin-bottom: 15px;
+            background: #fdfdfd;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+        .customer-info p {
+            margin: 4px 0;
+        }
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 6px;
+        }
+        .receipt-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 15px;
+            border-top: 2px solid #333;
+            padding-top: 10px;
+        }
+        .back-btn {
+            display: block;
+            width: 100%;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+        .back-btn:hover { background-color: #ff6b81; }
+    </style>
+</head>
+<body>
+
+    <div class="receipt-container">
+        <h2>STRUK PEMESANAN</h2>
+        <div class="subtitle">Restoran Nusantara</div>
+        <div class="date" id="receipt-date">-</div>
+        
+        <!-- Informasi Pemesan dari Form -->
+        <div class="customer-info">
+            <p><strong>Nama:</strong> <span id="info-nama">-</span></p>
+            <p><strong>No. Meja:</strong> <span id="info-meja">-</span></p>
+            <p><strong>Catatan:</strong> <span id="info-catatan">-</span></p>
+        </div>
+
+        <div id="receipt-list">
+            <!-- Data menu akan dimuat di sini -->
+        </div>
+
+        <div class="receipt-total">
+            <span>Total Pembayaran:</span>
+            <span id="receipt-total-price">Rp 0</span>
+        </div>
+
+        <a href="index.html" class="back-btn">Pesan Lagi (Reset)</a>
+    </div>
+
+    <script>
+        const savedOrder = localStorage.getItem('lastOrder');
+
+        if (!savedOrder) {
+            alert("Tidak ada data pesanan ditemukan!");
+            window.location.href = 'index.html';
+        } else {
+            const orderData = JSON.parse(savedOrder);
+            
+            // Tampilkan data form ke struk
+            document.getElementById('receipt-date').innerText = orderData.date;
+            document.getElementById('info-nama').innerText = orderData.nama;
+            document.getElementById('info-meja').innerText = orderData.meja;
+            document.getElementById('info-catatan').innerText = orderData.catatan;
+
+            let listHtml = '';
+            let grandTotal = 0;
+
+            orderData.items.forEach(item => {
+                const subtotal = item.price * item.qty;
+                grandTotal += subtotal;
+
+                listHtml += `
+                    <div class="receipt-item">
+                        <span>${item.name} (x${item.qty})</span>
+                        <span>Rp ${subtotal.toLocaleString('id-ID')}</span>
+                    </div>
+                `;
+            });
+
+            document.getElementById('receipt-list').innerHTML = listHtml;
+            document.getElementById('receipt-total-price').innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+        }
+    </script>
+</body>
+</html>

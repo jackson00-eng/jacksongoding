@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Pesan - Menu Utama</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+        }
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .card h3 {
+            font-size: 16px;
+            margin: 8px 0 4px;
+            color: #333;
+        }
+        .card p {
+            color: #777;
+            font-size: 13px;
+            margin: 0 0 10px 0;
+        }
+        .action-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+        .btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            width: 100%;
+        }
+        .btn:hover { background-color: #ff6b81; }
+        .counter-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .counter-btn {
+            background-color: #ddd;
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .counter-btn:hover { background-color: #ccc; }
+        .quantity { font-weight: bold; font-size: 14px; }
+        
+        /* Gaya untuk Form Input Pelanggan */
+        .form-section {
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #444;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+            height: 60px;
+        }
+
+        .submit-wrapper {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        #submit-btn {
+            background-color: #2ed573;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        #submit-btn:hover { background-color: #26af5f; }
+    </style>
+</head>
+<body>
+
+    <h1>Daftar Menu Restoran (24 Menu)</h1>
+
+    <!-- Form Input Data Pelanggan -->
+    <div class="form-section">
+        <h2>Informasi Pemesan</h2>
+        <div class="form-group">
+            <label for="nama">Nama Pemesan:</label>
+            <input type="text" id="nama" placeholder="Masukkan nama Anda">
+        </div>
+        <div class="form-group">
+            <label for="meja">Nomor Meja:</label>
+            <input type="number" id="meja" placeholder="Contoh: 5">
+        </div>
+        <div class="form-group">
+            <label for="catatan">Catatan Tambahan (Opsional):</label>
+            <textarea id="catatan" placeholder="Contoh: Jangan pakai pedas"></textarea>
+        </div>
+    </div>
+
+    <!-- Container Menu -->
+    <div class="menu-container" id="menu-container"></div>
+
+    <div class="submit-wrapper">
+        <button id="submit-btn" onclick="prosesPesanan()">Proses Pesanan & Buka Struk</button>
+    </div>
+
+    <script>
+        const menus = [
+            { id: 1, name: "Beef Burger", price: 35000, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300" },
+            { id: 2, name: "Fried Chicken", price: 20000, img: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=300" },
+            { id: 3, name: "French Fries", price: 15000, img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=300" },
+            { id: 4, name: "Iced Tea", price: 5000, img: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300" },
+            { id: 5, name: "Pizza Pepperoni", price: 60000, img: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=300" },
+            { id: 6, name: "Spaghetti Bolognese", price: 30000, img: "https://images.unsplash.com/photo-1621996346565-e3d5d6281298?w=300" },
+            { id: 7, name: "Nasi Goreng Spesial", price: 25000, img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300" },
+            { id: 8, name: "Mie Ayam Bakso", price: 22000, img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=300" },
+            { id: 9, name: "Sate Ayam Madura", price: 28000, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=300" },
+            { id: 10, name: "Juice Alpukat", price: 18000, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=300" },
+            { id: 11, name: "Juice Mangga", price: 18000, img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=300" },
+            { id: 12, name: "Es Campur", price: 15000, img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=300" },
+            { id: 13, name: "Chicken Wings", price: 25000, img: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=300" },
+            { id: 14, name: "Hot Dog", price: 20000, img: "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?w=300" },
+            { id: 15, name: "Sosis Bakar", price: 12000, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=300" },
+            { id: 16, name: "Corn Dog", price: 15000, img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=300" },
+            { id: 17, name: "Cappuccino", price: 22000, img: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=300" },
+            { id: 18, name: "Café Latte", price: 23000, img: "https://images.unsplash.com/photo-1534778101976-62847782c213?w=300" },
+            { id: 19, name: "Milkshake Coklat", price: 20000, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=300" },
+            { id: 20, name: "Pancake Durian", price: 25000, img: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=300" },
+            { id: 21, name: "Waffle Keju", price: 22000, img: "https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=300" },
+            { id: 22, name: "Donut Glaze", price: 8000, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=300" },
+            { id: 23, name: "Brownies Kukus", price: 12000, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=300" },
+            { id: 24, name: "Air Mineral", price: 4000, img: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=300" }
+        ];
+
+        let cart = {};
+
+        function renderMenu() {
+            const container = document.getElementById('menu-container');
+            let html = '';
+
+            menus.forEach(menu => {
+                let qty = cart[menu.id] || 0;
+                html += `
+                    <div class="card">
+                        <img src="${menu.img}" alt="${menu.name}">
+                        <h3>${menu.name}</h3>
+                        <p>Rp ${menu.price.toLocaleString('id-ID')}</p>
+                        <div class="action-container">
+                            ${qty === 0 ? `
+                                <button class="btn" onclick="ubahJumlah(${menu.id}, 1)">+ Pesan</button>
+                            ` : `
+                                <div class="counter-controls">
+                                    <button class="counter-btn" onclick="ubahJumlah(${menu.id}, -1)">-</button>
+                                    <span class="quantity">${qty}</span>
+                                    <button class="counter-btn" onclick="ubahJumlah(${menu.id}, 1)">+1</button>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function ubahJumlah(id, delta) {
+            if (!cart[id]) cart[id] = 0;
+            cart[id] += delta;
+            if (cart[id] <= 0) delete cart[id];
+            renderMenu();
+        }
+
+        function prosesPesanan() {
+            // Ambil nilai dari form input
+            const nama = document.getElementById('nama').value.trim();
+            const meja = document.getElementById('meja').value.trim();
+            const catatan = document.getElementById('catatan').value.trim();
+            const orderedIds = Object.keys(cart);
+
+            // Validasi input form dan keranjang
+            if (!nama) {
+                alert("Mohon masukkan nama pemesan terlebih dahulu!");
+                document.getElementById('nama').focus();
+                return;
+            }
+            if (!meja) {
+                alert("Mohon masukkan nomor meja terlebih dahulu!");
+                document.getElementById('meja').focus();
+                return;
+            }
+            if (orderedIds.length === 0) {
+                alert("Silakan pilih minimal 1 menu pesanan!");
+                return;
+            }
+
+            // Kumpulkan data pesanan termasuk form
+            let orderData = {
+                nama: nama,
+                meja: meja,
+                catatan: catatan || "-",
+                date: new Date().toLocaleString('id-ID'),
+                items: []
+            };
+
+            orderedIds.forEach(id => {
+                const menu = menus.find(m => m.id == id);
+                orderData.items.push({
+                    name: menu.name,
+                    qty: cart[id],
+                    price: menu.price
+                });
+            });
+
+            // Simpan ke localStorage
+            localStorage.setItem('lastOrder', JSON.stringify(orderData));
+
+            // Pindah ke halaman struk.html
+            window.location.href = 'struk.html';
+        }
+
+        renderMenu();
+    </script>
+</body>
+</html>

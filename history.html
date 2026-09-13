@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Manrope:wght@200..800&family=Montenegrin+Gothic+One&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Pesanan - Cafe Well 🤙</title>
+    <link rel="stylesheet" href="CSS/history.css">
+</head>
+<body>
+   <header>
+    <nav>
+        <div class="logos">
+            <div class="well"><img id="well" src="asset/logo.png"></div>
+            <div class="textl"><img src="asset/cafe.png"></div>
+        </div>
+        <ul class="elegantlink">
+            <li><a href="index1.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="notification.html">Notification</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+    </nav>
+   </header>
+
+   <div class="wall"><img src="asset/—Pngtree—black marble texture with golden_19650579.png"></div>
+    <div class="wall-ov"></div>
+
+   <div class="history-container">
+       <h1>Tableau de l'historique des réservations de tables</h1>
+       
+       <div class="table-wrapper">
+           <table class="history-table">
+               <thead>
+                   <tr>
+                       <th>Date</th>
+                       <th>Customer Name</th>
+                       <th>Table number</th>
+                       <th>Ordered menu</th>
+                       <th>Notes</th>
+                       <th>prix Total</th>
+                   </tr>
+               </thead>
+               <tbody id="history-table-body">
+                   <!-- Data riwayat akan dimasukkan secara otomatis lewat JavaScript -->
+               </tbody>
+           </table>
+       </div>
+
+       <button class="clear-btn" onclick="clearHistory()">Hapus Semua Riwayat</button>
+   </div>
+   <script src="script/history.js"></script>
+</body>
+</html>

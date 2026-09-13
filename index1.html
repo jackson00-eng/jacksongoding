@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Manrope:wght@200..800&family=Montenegrin+Gothic+One&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/stylewell.css">
+    <title>Cafe Well 🤙 </title>
+</head>
+<body>
+   <header>
+    <nav>
+        <div class="logos">
+        <div class="well" ><img id="well" src="asset/logo.png"></div>
+        <div class="textl"><img src="asset/cafe.png"></div>
+        </div>
+        <ul class="elegantlink">
+           
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="notification.html">Notification</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="profile.html">Profile</a></li>
+           
+        </ul>
+        
+    </nav>
+    <div class="greeting">
+    <h1>Bienvenue dans l'application web de gestion de café</h1>
+    
+    </div>
+   </header>
+
+   <div class="bg-section">
+    <video autoplay muted loop plays-inline class="bg-video">
+        <source src="asset/Delicious Coffee in 4K Slow Motion  Making Coffee Videos in in Dolby Vision™ 60 FPS HDR - Mini World vs God Hand (1080p, h264).mp4">   
+    </video>
+
+    <div class="video-ol"></div>
+   </div>
+
+   <section>
+   <main>
+      <div class="menue-wrap" id="menue-wrap"></div>
+
+      <div class="main">
+      <div class="form-compo">
+      <div class="form-pesanan">
+        <label for="nama">Quel est ton nom ? | Siapa nama anda ?</label>
+        <input type="text" id="name" placeholder="Nous vous appellerons... | kami akan memanggilmu...">
+      </div>
+      <div class="form-pesanan">
+        <label for="table">À quelle table êtes-vous assis ? | Anda duduk di meja berapa?</label>
+        <input type="number" id="table" placeholder="Nous servirons vos plats à table... | kami akan menyajikan hidangan anda di meja...">
+      </div>
+      <div class="form-pesanan">
+        <label for="notes">Avez-vous des demandes supplémentaires concernant les plats que vous avez commandés ? | Apakah anda tambahan permintaan untuk hidangan yang anda pesan ?</label>
+        <textarea id="notes" placeholder="Remarque : ce plat a un goût trop sucré. | Exp : tolong hidangan ini disajikan dengan rasa yang terlalu manis dan terasa manisnya."></textarea>
+      </div>
+      <div class="form-pesanan">
+        <label for="cands">Comment est votre repas ce soir ? | Bagaimana hidangan anda malam ini ?</label>
+        <textarea id="cands" placeholder="Est-ce que la nourriture est bonne ? | apakah hidangannya memuaskan ?"></textarea>
+      </div>
+      <div class="form-pesanan">
+        <label for="date">tangal kedatangan : | date d'arrivée :</label>
+        <input type="date" id="date">
+      </div>
+    
+      </div>
+    </main> 
+
+      <div class="submit-btn">
+        <button id="submit" onclick="orderProcess()">Soumettre | submit</button>
+      </div>
+      </div>
+      
+
+   </section>
+   
+
+   <footer>
+    <div class="column-footer">
+    <div class="left-column">
+      <img src="asset/logos.jpg">
+    </div>
+    <div class="center-column">
+      <p id="day">Tuesday - sunday</p>
+      <p id="clock">12.00 - Late</p>
+      <p>only closed in Morning and sunday so get away for that day</p>
+    </div>
+    <div class="right-column">
+      <p>Jalan Kanjeng Pangeran Haryo Mangkunegoro Senopati Noto Diningrat Kusumo Yudo Negoro No. 88, RT 04 / RW 12, Kompleks Kawasan Istana Kepatihan Wetan, Kelurahan Kauman Lor, Kecamatan Menteng Kencana, Kota Surakarta, Provinsi Daerah Khusus Ibukota Surakarta Raya, 57112.</p>
+    </div>
+    </div>
+    <div class="bott-column">
+      <p>© 2026 Cafe Well. All Rights Reserved.</p>
+    </div>
+   </footer>
+
+   <script src="script/index1.js"></script>
+  
+</body>
+</html>
