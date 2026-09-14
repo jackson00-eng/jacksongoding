@@ -18,6 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
        
     }
 
+
+
+
     allOrders.forEach(order => {
         const tr = document.createElement('tr');
 
@@ -53,4 +56,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         tbody.appendChild(tr);
     });
+
+    
 });
+
+    function clearHistory() {
+    // Menghapus data riwayat dari localStorage
+    localStorage.removeItem('cafeOrders');
+    localStorage.removeItem('lastOrder');
+    
+    // Memuat ulang halaman agar tabel langsung bersih seketika[cite: 1]
+    location.reload();
+}
