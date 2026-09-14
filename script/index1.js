@@ -107,6 +107,7 @@ const menue = [
         const notes = document.getElementById('notes').value.trim();
         const date = document.getElementById('date').value.trim();
         const cands = document.getElementById('cands').value.trim();
+        const selectCategory = document.getElementById('category').value.trim();
         const orderedIds = Object.keys(cart);
     
         if (!inputName) {
@@ -126,6 +127,29 @@ const menue = [
             return;
         }  
     
+        let subtotal = 0;
+        let itemsArray = [];
+
+        orderedIds.forEach(id => {
+            const menu = menue.find(m => m.id == id);
+            const itemSubtotal = menu.price * cart[id];
+            subtotal += itemSubtotal;
+
+            itemsArray.push({
+                name: menu.name,
+                qty: cart[id],
+                price: menu.price
+            });
+        });
+
+        let diskon = 0;
+        if (selectCategory === "Member") {
+            diskon = subtotal * 0.10;
+        }
+
+        const pajak = (subtotal - diskon) * 0.10;
+        const totalBayar = (subtotal - diskon) + pajak;
+
         let orderData = {
             id: Date.now(),
             name: inputName,
@@ -133,21 +157,20 @@ const menue = [
             notes:notes,
             date: date,
             cands: cands,
-            items : []
+            category: selectCategory,
+            subtotal: subtotal,
+            diskon: diskon,
+            pajak: pajak,
+            totalBayar: totalBayar,
+            items: itemsArray
         };
-
-        orderedIds.forEach(id => {
-            const menu = menue.find(m => m.id == id);
-            orderData.items.push({
-                name: menu.name,
-                qty: cart[id],
-                price: menu.price
-            });
-        });
+s
         let allOrders = JSON.parse(localStorage.getItem('cafeOrders')) ||[];
         allOrders.push(orderData);
+
         localStorage.setItem('cafeOrders',JSON.stringify(allOrders));
         localStorage.setItem('lastOrder', JSON.stringify(orderData));
+        
         window.location.href= 'bill.html';
 
 

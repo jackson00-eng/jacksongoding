@@ -307,7 +307,7 @@ h1, h2 {
     color: #D4AF37;
 }
 
-.form-pesanan input, .form-pesanan textarea {
+.form-pesanan input, .form-pesanan textarea, .form-pesanan select {
     width: 100%;
     padding: 10px;
     border: 1px solid #D4AF37;
@@ -565,9 +565,9 @@ footer {
     color: #D4AF37;
 }
 
-.form-pesanan input, .form-pesanan textarea {
+.form-pesanan input, .form-pesanan textarea, .form-pesanan select {
     width: 100%;
-    padding: 10px;
+    padding: 20px;
     border: 1px solid #D4AF37;
     border-radius: 6px;
     font-size: 14px;

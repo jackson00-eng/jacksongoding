@@ -1,52 +1,56 @@
- function loadHistory() {
-           const tableBody = document.getElementById('history-table-body');
-           const savedOrders = JSON.parse(localStorage.getItem('cafeOrders')) || [];
+document.addEventListener("DOMContentLoaded", () => {
+    const tbody = document.getElementById('history-table-body');
+    if (!tbody) return;
 
-           if (savedOrders.length === 0) {
-               tableBody.innerHTML = `
-                   <tr>
-                       <td colspan="6" class="empty-msg">Belum ada riwayat pesanan yang tercatat.</td>
-                   </tr>
-               `;
-               return;
-           }
-           
-           savedOrders.sort((a,b) => new Date(a.date) - new Date(b.date));
+    let allOrders = JSON.parse(localStorage.getItem('cafeOrders')) || [];
 
-           let html = '';
-           // Urutkan dari pesanan terbaru ke terlama menggunakan .slice().reverse()
-           savedOrders.slice().reverse().forEach(order => {
-               let totalPrice = 0;
-               let itemsHtml = '<ul class="item-list">';
+    if (allOrders.length === 0) {
+    
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 6; 
+        td.textContent = "Belum ada riwayat pesanan yang tersimpan.";
+        td.style.textAlign = "center";
+        td.style.padding = "20px";
+        
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+       
+    }
 
-               order.items.forEach(item => {
-                   let subtotal = item.price * item.qty;
-                   totalPrice += subtotal;
-                   itemsHtml += `<li>${item.name} (x${item.qty})</li>`;
-               });
-               itemsHtml += '</ul>';
+    allOrders.forEach(order => {
+        const tr = document.createElement('tr');
 
-              html += `
-        <tr>
-            <td data-label="Waktu:">${order.date}</td>
-            <td data-label="Pelanggan:">${order.name}</td>
-            <td data-label="No. Meja:">Meja ${order.table}</td>
-            <td data-label="Menu:">${itemsHtml}</td>
-            <td data-label="Catatan:" ">${order.notes ? order.notes : '<span>-</span>'}</td>
-            <td data-label="Total:" class="total-price">Rp ${totalPrice.toLocaleString('id-ID')}</td>
-        </tr>
-        `;
-           });
+        const tdDate = document.createElement('td');
+        tdDate.textContent = order.date || '-';
 
-           tableBody.innerHTML = html;
-       }
+        const tdName = document.createElement('td');
+        tdName.textContent = order.name || '-';
 
-       function clearHistory() {
-           if (confirm("Apakah Anda yakin ingin menghapus semua riwayat pesanan di tabel ini?")) {
-               localStorage.removeItem('cafeOrders');
-               loadHistory();
-           }
-       }
+        const tdTable = document.createElement('td');
+        tdTable.textContent = order.table || '-';
 
-       // Jalankan fungsi saat halaman dimuat
-       loadHistory();
+        const tdCategory = document.createElement('td');
+        tdCategory.textContent = order.category || 'Umum';
+
+        let produkStr = '';
+        if (order.items && order.items.length > 0) {
+            produkStr = order.items.map(i => `${i.name} (x${i.qty})`).join(', ');
+        }
+        const tdItems = document.createElement('td');
+        tdItems.textContent = produkStr;
+
+        const tdTotal = document.createElement('td');
+        const totalFinal = order.totalBayar || order.subtotal || 0;
+        tdTotal.textContent = `Rp ${totalFinal.toLocaleString('id-ID')}`;
+
+        tr.appendChild(tdDate);
+        tr.appendChild(tdName);
+        tr.appendChild(tdTable);
+        tr.appendChild(tdCategory);
+        tr.appendChild(tdItems);
+        tr.appendChild(tdTotal);
+
+        tbody.appendChild(tr);
+    });
+});
