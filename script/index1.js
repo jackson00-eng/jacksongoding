@@ -164,7 +164,7 @@ const menue = [
             totalBayar: totalBayar,
             items: itemsArray
         };
-s
+        
         let allOrders = JSON.parse(localStorage.getItem('cafeOrders')) ||[];
         allOrders.push(orderData);
 
